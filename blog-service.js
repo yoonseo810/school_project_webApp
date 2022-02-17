@@ -69,3 +69,71 @@ module.exports.getCategories = function()
         }
     })
 }
+
+module.exports.addPost = function(postData)
+{
+    return new Promise((resolve, reject)=>{
+        if (postData.published == undefined)
+        {
+            postData.published = false;
+        }
+        else{
+            postData.published = true;
+        }
+        postData.id = posts.length + 1;
+        posts.push(postData);
+        resolve(postData);
+    })
+}
+
+module.exports.getPostsByCategory = function(category)
+{
+    return new Promise((resolve,reject)=>{
+        var newArray = posts.filter(x=>x.category == category);
+        if (newArray.length == 0)
+        {
+            reject("No result returned");
+        }
+        else{
+            resolve(newArray);
+        }
+    })
+}
+
+module.exports.getPostsByMinDate = function(minDateStr)
+{
+    return new Promise((resolve, reject)=>{
+        var newArray = posts.filter(x=>new Date(x.postDate) >= new Date(minDateStr));
+        if (newArray.length == 0)
+        {
+            reject("No result returned");
+        }
+        else{
+            resolve(newArray);
+        }
+    })
+}
+
+module.exports.getPostById = function(id)
+{
+    return new Promise((resolve, reject)=>{
+        var found = false;
+        var matchedPost;
+        for (i = 0; i < posts.length; i++)
+        {
+            if (posts[i].id == id)
+            {
+                matchedPost = posts[i];
+                found = true;
+            }
+        }
+        if(found)
+        {
+            resolve(matchedPost);
+        }
+        else{
+            reject("No result returned");
+        }
+        //var matchedPost = posts.filter(x=>x.id == id);
+    })
+}
