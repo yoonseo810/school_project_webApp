@@ -81,6 +81,7 @@ module.exports.addPost = function(postData)
             postData.published = true;
         }
         postData.id = posts.length + 1;
+        postData.postDate = new Date().toISOString().slice(0,10);
         posts.push(postData);
         resolve(postData);
     })
@@ -134,6 +135,19 @@ module.exports.getPostById = function(id)
         else{
             reject("No result returned");
         }
-        //var matchedPost = posts.filter(x=>x.id == id);
+    })
+}
+
+module.exports.getPublishedPostsByCategory = function(category)
+{
+    return new Promise((resolve,reject)=>{
+        var arr = posts.filter(x=>x.published == true && x.category == category);
+        if (arr.length == 0)
+        {
+            reject("No results returned");
+        }
+        else{
+            resolve(arr);
+        }
     })
 }
