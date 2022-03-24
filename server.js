@@ -224,9 +224,6 @@ app.get("/posts", (req, res) => {
                     message: "no results"
                 });
             }
-            // res.render("posts",{
-            //     posts: data
-            // });
         }).catch(err => {
             res.render("posts", {
                 message: "no results"
@@ -276,7 +273,6 @@ app.get("/categories", (req, res) => {
 })
 
 app.get("/posts/add", (req, res) => {
-    //res.render("addPost")
     blogService.getCategories().then(data=>{
         res.render("addPost",{categories: data});
     }).catch(err=>{
@@ -322,7 +318,6 @@ app.post("/posts/add", upload.single("featureImage"), (req, res) => {
         }).catch(err=>{
             console.log(err);
         })
-        //res.redirect("/posts");
     };
 })
 

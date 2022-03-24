@@ -77,17 +77,12 @@ module.exports.addPost = function(postData)
 {
     return new Promise((resolve, reject)=>{
        postData.published = (postData.published) ? true : false;
-       //postData.postDate = new Date();
        for (var prop in postData)
        {
-           if (prop == "")
+           if (postData[prop] === "")
            {
-               prop = null;
+               postData[prop] = null;
            }
-       };
-       if (postData.category == "")
-       {
-           postData.category = null;
        };
        postData.postDate = new Date();
        Post.create(postData).then(()=>{
@@ -103,9 +98,9 @@ module.exports.addCategory = function(catData)
     return new Promise((resolve, reject)=>{
         for (var prop in catData)
         {
-            if (prop == "")
+            if (catData[prop] === "")
             {
-                prop = null;
+                catData[prop] = null;
             }
         };
     Category.create(catData).then(()=>{
