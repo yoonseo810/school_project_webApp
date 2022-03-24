@@ -8,7 +8,7 @@
             {{#safeHTML data.post.body}}{{/safeHTML}}
             <br /><br />
             <strong>Category:</strong> {{data.post.category}}<br />
-            <strong>Last Updated:</strong> {{data.post.postDate}}
+            <strong>Last Updated:</strong> {{#formatDate data.post.postDate}}{{/formatDate}}
 
         </article>
         {{else}}
@@ -20,13 +20,14 @@
     </section>
     <aside class="col-md-3">
         <br /><br />
+        {{#if data.posts}}
         <h4>Posts</h4>
-
         <ul class="list-group">
             {{#each data.posts}}
             <a href="/blog/{{id}}?category={{../viewingCategory}}" class="list-group-item">{{title}}</a>
             {{/each}}
         </ul>
+        {{/if}}
         {{#if data.categories}}
         <h4>Categories</h4>
         <ul class="list-group">
